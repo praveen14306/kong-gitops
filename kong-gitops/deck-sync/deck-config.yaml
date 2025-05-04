@@ -1,0 +1,11 @@
+
+cat <<EOF > deck-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deck-config
+data:
+  kong.yaml: |
+$(sed 's/^/    /' kong.yaml)
+EOF
+

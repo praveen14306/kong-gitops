@@ -1,0 +1,28 @@
+cat <<EOF > job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: deck-sync
+spec:
+  template:
+    spec:
+      containers:
+      - name: deck
+        image: kong/deck:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          deck ping --kong-addr http://kong-kong-admin.kong:8001 && \
+          deck sync --state /config/kong.yaml --kong-addr http://kong-kong-admin.kong:8001
+        volumeMounts:
+        - name: config
+          mountPath: /config
+      restartPolicy: Never
+      volumes:
+      - name: config
+        configMap:
+          name: deck-config
+  backoffLimit: 3
+EOF
+
