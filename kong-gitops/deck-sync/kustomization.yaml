@@ -1,6 +1,0 @@
-cat <<EOF > kustomization.yaml
-resources:
-  - job.yaml
-  - deck-config.yaml
-EOF
-
