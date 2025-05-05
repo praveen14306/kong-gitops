@@ -12,8 +12,9 @@ spec:
           - /bin/sh
           - -c
           - |
-            deck gateway ping --kong-addr http://localhost:8001/ && \
-            deck gateway sync --state /config/kong.yaml --kong-addr http://localhost:8001/
+              deck ping --kong-addr http://kong-kong-admin.kong:8001 && \
+              deck sync --state /config/kong.yaml --kong-addr http://kong-kong-admin.kong:8001
+
         volumeMounts:
         - name: config
           mountPath: /config
